@@ -1,0 +1,39 @@
+<template>
+  <div class="grid-options">
+    <div class="grid-options__item">
+      <svg width="20" height="18" viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="1.47046" y="1" width="6.28857" height="6" stroke="#606060" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="11.9513" y="1" width="6.28845" height="6" stroke="#606060" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="11.9513" y="11" width="6.28845" height="6" stroke="#606060" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="1.47046" y="11" width="6.28857" height="6" stroke="#606060" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="grid-options__item">
+      <svg width="16" height="14" viewBox="0 0 16 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1.11511 1H14.7401" stroke="#606060" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M1.11511 7H14.7401" stroke="#606060" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M1.11511 13H14.7401" stroke="#606060" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </div>
+</template>
+
+<style lang="scss">
+.grid-options {
+  display: flex;
+  align-items: center;
+}
+
+.grid-options__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-left: 14px;
+  background: #fff;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.13);
+  border-radius: 8px;
+  cursor: pointer;
+}
+</style>

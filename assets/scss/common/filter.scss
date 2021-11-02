@@ -1,0 +1,203 @@
+.filter__form {
+  padding: 28px;
+  margin: 20px 0;
+  background: #fff;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.13);
+  border-radius: 8px;
+}
+
+.filter-item {
+  padding: 32px 0;
+  border: none;
+  border-top: 1px solid #d6d6d6;
+
+  &:first-child {
+    padding-top: 0;
+    border-top: none;
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+}
+
+span.filter-item__title {
+  display: block;
+  font-weight: 600;
+  padding-bottom: 15px;
+}
+
+// Чекбоксы
+.filter-item__checkbox {
+  position: relative;
+  padding: 5px 0;
+}
+
+.checkbox-input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+
+  + label {
+    position: relative;
+    width: 100%;
+    font-size: 0.9rem;
+    font-weight: 300;
+    display: inline-flex;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+
+    &::before {
+      content: '';
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      flex-grow: 0;
+      border: 1px solid #999;
+      border-radius: 2px;
+      margin-right: 12px;
+      background-repeat: no-repeat;
+      background-position: center center;
+      cursor: pointer;
+    }
+
+    sup {
+      position: absolute;
+      right: 0;
+      font-size: 0.7rem;
+    }
+  }
+}
+
+.checkbox-input:checked + label::before {
+  border-color: $blue;
+  background-image: url('~@/assets/img/checked.png');
+  background-size: 8px;
+  background-position: 3px 3px;
+}
+
+// Radio
+.filter-item__radio {
+  padding: 5px 0;
+}
+
+.radio-input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.radio-input + label {
+  position: relative;
+  width: 100%;
+  font-size: 0.9rem;
+  font-weight: 300;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
+  cursor: pointer;
+}
+.radio-input + label::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  border: 1px solid #979797;
+  border-radius: 50%;
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+.radio-input:checked + label::before {
+  border-color: $blue;
+  background-color: $blue;
+}
+
+// Rating
+.rating-area {
+  position: relative;
+  display: flex;
+  flex-flow: row-reverse;
+  justify-content: flex-end;
+	overflow: hidden;
+}
+.rating-area:not(:checked) > input {
+  position: relative;
+	display: none;
+}
+.rating-area:not(:checked) > label {
+  float: right;
+  width: 30px;
+  padding: 0;
+  cursor: pointer;
+}
+.rating-area:not(:checked) > label:before {
+	content: '';
+  display: inline-block;
+  background: url('~@/assets/img/star-disable.svg');
+  background-size: 100%;
+  width: 20px;
+  height: 21px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.rating-area > input:checked ~ label {
+	color: transparent;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    background: url('~@/assets/img/star.svg');
+    background-size: 100%;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+.rating-area:not(:checked) > label:hover,
+.rating-area:not(:checked) > label:hover ~ label {
+
+	&::before {
+    content: '';
+    display: inline-block;
+    background: url('~@/assets/img/star.svg');
+    background-size: 100%;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+.rating-area > input:checked + label:hover,
+.rating-area > input:checked + label:hover ~ label,
+.rating-area > input:checked ~ label:hover,
+.rating-area > input:checked ~ label:hover ~ label,
+.rating-area > label:hover ~ input:checked ~ label {
+  color: transparent;
+}
+
+.rating-area sup {
+	position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 0.7rem;
+  font-weight: 300;
+}
+
+.rate-area > label:active {
+	position: relative;
+}
+
+// Кнопка "Очистить фильтр"
+.filter__btn-wrapper {
+  padding-top: 10px;
+
+  .btn {
+    width: 100%;
+  }
+}

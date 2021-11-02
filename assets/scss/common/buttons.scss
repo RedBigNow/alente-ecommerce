@@ -1,0 +1,21 @@
+.btn {
+  display: inline-block;
+  padding: 18px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: .3s;
+
+  // default btn
+  &.btn-default {
+    color: #ffffff;
+    background-color: $blue;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.13);
+
+    &:hover {
+      background-color: #5e53de;
+    }
+  }
+}
+
+
