@@ -1,5 +1,10 @@
 # Alente ecommerce on Nuxt.js
 
+## Demo:
+https://redbignow.github.io/alente-ecommerce/dist/index.html
+
+## Build Setup
+
 ## Build Setup
 
 ```bash

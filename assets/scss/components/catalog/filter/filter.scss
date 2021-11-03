@@ -66,6 +66,7 @@ span.filter-item__title {
     sup {
       position: absolute;
       right: 0;
+      top: 12px;
       font-size: 0.7rem;
     }
   }
@@ -184,7 +185,7 @@ span.filter-item__title {
 .rating-area sup {
 	position: absolute;
   right: 0;
-  top: 0;
+  top: 12px;
   font-size: 0.7rem;
   font-weight: 300;
 }

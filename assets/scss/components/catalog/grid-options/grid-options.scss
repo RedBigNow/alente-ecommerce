@@ -1,0 +1,27 @@
+.grid-options {
+  display: flex;
+  align-items: center;
+}
+
+.grid-options__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-left: 14px;
+  background: #fff;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.13);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: .3s;
+
+  &.active {
+    background: #6F64F8;
+
+    svg rect,
+    svg path {
+      stroke: #fff;
+    }
+  }
+}

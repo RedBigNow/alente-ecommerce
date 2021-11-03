@@ -12,9 +12,9 @@ export default {
   },
   methods: {
     pageChangeHandler(page) {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
       this.$router.push(`${this.$nuxt.$route.path}?page=${page}`)
       this.items = this.allItems[page - 1] || this.allItems[0]
-      window.scrollTo({ top: 0, behavior: 'smooth' })
     },
     setupPagination(allItems) {
       this.allItems = _.chunk(allItems, this.pageSize)

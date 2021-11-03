@@ -28,7 +28,8 @@ export default {
 
     // Global CSS: https://go.nuxtjs.dev/config-css
     css: [
-        { src: '~/assets/scss/main.scss', lang: 'scss' }
+      { src: 'normalize.css/normalize.css', lang: 'css' },
+      { src: '~/assets/scss/main.scss', lang: 'scss' }
     ],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -62,24 +63,5 @@ export default {
             'vue',
             'axios'
         ]
-    },
-    generate: {
-        routes: function () {
-            return axios.get('https://blog-nuxt-5b600-default-rtdb.firebaseio.com/posts.json')
-                .then((res) => {
-
-                    // Get ID
-                    const postsArray = []
-                    for (let key in res.data) {
-                        postsArray.push( {...res.data[key], id: key } )
-                    }
-
-                    // Routes
-                    return postsArray.map((post) => {
-                        return '/blog/' + post.id
-                    })
-
-                })
-        }
     }
 }

@@ -34,11 +34,3 @@ export default {
     }
 }
 </script>
-
-<style lang="scss">
-.catalog-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-</style>

@@ -21,12 +21,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.product-list {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  margin: 0 -14px;
-}
-</style>

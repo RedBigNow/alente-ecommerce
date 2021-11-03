@@ -1,18 +1,21 @@
-// обновленные стандартные стили
-
-// Заголовок
-@import "common/title";
 // Контролы
 @import "common/controls";
-// Линки
-@import "common/link";
 // Кнопки
 @import "common/buttons";
-// Меню
-@import "common/navbar";
+// Шапка
+@import "common/header";
 
+// Общие стили для каталога
+@import "components/catalog/common/common";
 // Фильтр
-@import "common/filter";
-
-// Статус
-@import "common/status";
+@import "components/catalog/filter/filter";
+// Селект сортировка
+@import "components/catalog/sort-by/sort-by";
+// Выбор сетки
+@import "components/catalog/grid-options/grid-options";
+// Форма поиска
+@import "components/catalog/search/search";
+// Список товаров
+@import "components/catalog/products/products";
+// Пагинация
+@import "components/catalog/pagination/pagination";

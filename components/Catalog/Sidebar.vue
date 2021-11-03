@@ -13,10 +13,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.sidebar {
-  width: 24%;
-  padding-top: 22px;
-}
-</style>
