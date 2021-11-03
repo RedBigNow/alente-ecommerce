@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 // UI
+import Paginate from '~/node_modules/vuejs-paginate/src/components/Paginate'
 // import PostList from '@/components/Blog/PostList.vue'
 
 // Controls
@@ -9,6 +10,7 @@ import AppInput from '@/components/UI/Controls/Input.vue'
 import AppTextarea from '@/components/UI/Controls/Textarea.vue'
 
 // UI
+Vue.component('Paginate', Paginate)
 // Vue.component('PostList', PostList)
 
 // Controls

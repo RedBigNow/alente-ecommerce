@@ -1,19 +1,19 @@
 <template>
-  <div class="product-item">
+  <div class="product-item" :class="{ full : !getGrid}">
     <div class="product-item__wrapper">
-      <nuxt-link to="/">
-        <div class="product-item__img">
-          <img src="@/static/img/products/apple-watch.png" alt="">
-        </div>
-      </nuxt-link>
-      <div class="product-item__info">
-        <div class="product-item__rating"><span>3.4</span></div>
-        <div class="product-item__price"><span>$399</span></div>
+      <div class="product-item__img">
+        <nuxt-link to="/">
+          <img :src="product.image" :alt="product.title">
+        </nuxt-link>
       </div>
-      <nuxt-link to="/">
-        <h2 class="product-item__title">Apple Watch Series 4 GPS</h2>
-      </nuxt-link>
-      <p class="product-item__descr">Redesigned from scratch and completely revised.</p>
+      <div class="product-item__info">
+        <div class="product-item__extra">
+          <div class="product-item__rating"><span>{{ product.rating }}</span></div>
+          <div class="product-item__price"><span>${{ product.price }}</span></div>
+        </div>
+        <nuxt-link to="/" class="product-item__title">{{ product.title }}</nuxt-link>
+        <p class="product-item__descr">{{ product.desc }}</p>
+      </div>
     </div>
     <div class="product-item__btns">
       <button class="product-btn product-btn--wishlist"><span>Wishlist</span></button>
@@ -21,6 +21,22 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    product: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    getGrid () {
+      return this.$store.getters.getGrid
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 .product-item {
@@ -33,6 +49,70 @@
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.13);
   border-radius: 8px;
   overflow: hidden;
+  transition: .3s;
+
+  &.full {
+    flex-flow: wrap;
+    justify-content: flex-start;
+    width: 100%;
+
+    .product-item__wrapper {
+      width: 66%;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 30px;
+
+      .product-item__img {
+        width: 33%;
+
+        img {
+          max-height: 200px;
+        }
+      }
+
+      .product-item__info {
+        width: 66%;
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        padding-left: 30px;
+
+        .product-item__extra {
+          justify-content: flex-start;
+          order: 3;
+
+          .product-item__rating {
+            margin-right: 20px;
+          }
+        }
+
+        .product-item__title {
+          font-size: 1rem;
+          order: 1;
+          padding-top: 0;
+          padding-bottom: 8px;
+        }
+
+        p.product-item__descr {
+          font-size: 0.8rem;
+          order: 2;
+          padding-bottom: 20px;
+        }
+      }
+    }
+
+    .product-item__btns {
+      width: 33%;
+      flex-flow: column;
+      align-items: flex-end;
+      padding: 30px;
+
+      .product-btn {
+        margin: 15px 0;
+        border-radius: 4px;
+      }
+    }
+  }
 }
 
 .product-item__wrapper {
@@ -52,7 +132,7 @@
   }
 }
 
-.product-item__info {
+.product-item__extra {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -79,7 +159,8 @@
   }
 }
 
-h2.product-item__title {
+a.product-item__title {
+  display: block;
   color: #2c2c2c;
   font-size: 0.9rem;
   padding-top: 16px;

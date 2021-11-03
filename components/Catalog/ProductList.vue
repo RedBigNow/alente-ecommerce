@@ -1,20 +1,23 @@
 <template>
   <div class="product-list">
-    <productItem />
-    <productItem />
-    <productItem />
-    <productItem />
-    <productItem />
-    <productItem />
+    <productPreview
+      v-for="item in items"
+      :key="item.id"
+      :product="item"
+    />
   </div>
 </template>
 
 <script>
-import productItem from '@/components/Catalog/ProductItem.vue'
-
+import productPreview from '@/components/Catalog/ProductPreview.vue'
 export default {
   components: {
-    productItem
+    productPreview
+  },
+  props: {
+    items: {
+      type: Array
+    }
   }
 }
 </script>
