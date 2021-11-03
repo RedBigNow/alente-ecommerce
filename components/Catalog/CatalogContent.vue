@@ -1,10 +1,22 @@
 <template>
   <div class="content">
-    <div class="catalog-toolbar">
+
+    <section class="catalog-toolbar">
+
       <span class="search-results">7,618 results found in 5ms</span>
+
+      <div class="filter-btn" @click="showFilter">
+        <div class="filter-btn__icon">
+          <img src="~@/assets/img/filter.svg">
+        </div>
+      </div>
+
       <selectSort/>
+
       <gridOptions/>
-    </div>
+
+    </section>
+
     <Search
       :value="search"
       placeholder="Search hear"
@@ -76,7 +88,49 @@ export default {
   methods: {
     getProducts () {
       return this.$store.getters.getProducts
+    },
+    showFilter () {
+      this.$store.dispatch('showFilter')
     }
   }
 }
 </script>
+
+<style lang="scss">
+.filter-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
+  padding: 10px;
+  background: #fff;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.13);
+  border-radius: 8px;
+  cursor: pointer;
+
+  .filter-btn__icon {
+    width: 100%;
+    height: 100%;
+    img {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .filter-btn {
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .filter-btn {
+    width: 30px;
+    height: 30px;
+    margin-right: 12px;
+    padding: 7px;
+  }
+}
+</style>

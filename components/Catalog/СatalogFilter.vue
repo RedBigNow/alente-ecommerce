@@ -33,6 +33,7 @@
     </form>
 
     <div class="filter__btn-wrapper">
+      <AppButton btnClass="btn-apply" @click="showFilter">Apply</AppButton>
       <AppButton>Clear all filters</AppButton>
     </div>
   </div>
@@ -60,6 +61,11 @@ export default {
     },
     getPriceRange () {
       return this.$store.getters.getPriceRange
+    }
+  },
+  methods: {
+    showFilter () {
+      this.$store.dispatch('showFilter')
     }
   }
 }

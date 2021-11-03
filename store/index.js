@@ -41,7 +41,8 @@ export const state = () => ({
       checked: true
     }
   ],
-  grid: true
+  grid: true,
+  filterShow: false
 })
 
 export const mutations = {
@@ -56,6 +57,9 @@ export const mutations = {
   },
   changeGrid (state, status) {
     state.grid = status
+  },
+  showFilter (state) {
+    state.filterShow = !state.filterShow
   }
 }
 
@@ -96,6 +100,9 @@ export const actions = {
   },
   changeGrid ({commit}, status) {
     commit('changeGrid', status)
+  },
+  showFilter ({commit}) {
+    commit('showFilter')
   }
 }
 
@@ -114,5 +121,8 @@ export const getters = {
   },
   getGrid (state) {
     return state.grid
+  },
+  getFilter (state) {
+    return state.filterShow
   }
 }

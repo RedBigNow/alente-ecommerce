@@ -2,11 +2,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  padding-bottom: 80px;
 }
 
 .sidebar {
   width: 24%;
   padding-top: 22px;
+  transition: .3s;
 }
 
 .content {
@@ -38,3 +40,65 @@
     font-size: 24px;
   }
 }
+
+@media screen and (max-width: 1200px) {
+  .sidebar {
+    width: 28%;
+  }
+
+  .content {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -999;
+    width: 100vw;
+    min-height: 0;
+    height: 0;
+    opacity: 0;
+    transition: .3s ease-in-out;
+
+    &.show {
+      position: fixed;
+      z-index: 999;
+      opacity: 1;
+      width: 100vw;
+      min-height: 100vh;
+      height: 100%;
+      overflow-y: scroll;
+      overflow-x: hidden;
+      background: #fff;
+      padding: 40px 10%;
+      transition: .3s ease-in-out;
+    }
+  }
+
+  .content {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .sidebar {
+    &.show {
+      padding: 30px 15px;
+    }
+  }
+
+  .search-results {
+    top: 10px;
+    font-size: 0.65rem;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .search-results {
+    top: 5px;
+  }
+}
+

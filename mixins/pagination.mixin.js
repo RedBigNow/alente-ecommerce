@@ -10,7 +10,20 @@ export default {
       items: []
     }
   },
+  mounted() {
+    window.addEventListener('load', this.onResize)
+    window.addEventListener('resize', this.onResize)
+  },
   methods: {
+    onResize() {
+      if (window.innerWidth > 780) {
+        console.log(9)
+        this.pageSize = 9
+      } else {
+        console.log(8)
+        this.pageSize = 8
+      }
+    },
     pageChangeHandler(page) {
       window.scrollTo({ top: 0, behavior: 'smooth' })
       this.$router.push(`${this.$nuxt.$route.path}?page=${page}`)

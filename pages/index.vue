@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper-content">
+    <div class="wrapper-content" :class="{ 'no-scroll' : getFilter}">
         <div class="container">
           <div class="catalog-wrapper">
             <sidebar />
@@ -17,6 +17,11 @@ export default {
     components: {
         sidebar,
         catalogContent
+    },
+    computed: {
+      getFilter () {
+        return this.$store.getters.getFilter
+      }
     },
     head () {
         let title = 'Alente e-commerce',

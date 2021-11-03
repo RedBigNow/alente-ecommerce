@@ -7,15 +7,6 @@ html {
 	font-size: $mainFontSize;
 	color: $mainFontColor;
   height: 100%;
-  @media screen and (max-width: $desktopWidth) {
-		font-size: 16px;
-  }
-  @media screen and (max-width: $tableWidth) {
-		font-size: 15px;
-  }
-  @media screen and (max-width: $phoneWidth) {
-		font-size: 14px;
-  }
 }
 
 body {
@@ -54,16 +45,6 @@ ul, li {
 
 section, .section {
   position: relative;
-  padding: 40px 0;
-  @media screen and (max-width: $desktopWidth) {
-    padding: 36px 0;
-  }
-  @media screen and (max-width: $desktopWidth) {
-    padding: 28px 0;
-  }
-  @media screen and (max-width: $desktopWidth) {
-    padding: 20px 0;
-  }
 }
 
 .wrapper {
@@ -86,17 +67,54 @@ section, .section {
   width: 100%;
   flex: 0 0 auto;
   position: relative;
-  max-width: $desktopWidth;
   margin: 0 auto;
-  @media screen and (max-width: $smDesktopWidth) {
-    max-width: $tableWidth;
+}
+
+@media screen and (max-width: 576px) {
+  .container {
+    padding: 0 15px;
   }
-  @media screen and (max-width: $tableWidth) {
-    max-width: $phoneWidth;
+}
+
+@media screen and (min-width: 576px) {
+  .container {
+    width: 546px;
   }
-  @media screen and (max-width: $phoneWidth) {
-    max-width: $smPhoneWidth;
+}
+
+@media screen and (min-width: 780px) {
+  .container {
+    width: 720px;
   }
+}
+
+@media screen and (min-width: 992px) {
+  .container {
+    width: 932px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .container {
+    width: 1140px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .container {
+    width: 1360px;
+  }
+}
+
+@media screen and (min-width: 1710px) {
+  .container {
+    width: 1650px;
+  }
+}
+
+.no-scroll {
+  overflow: hidden;
+  height: 0;
 }
 
 @import "./common.scss";

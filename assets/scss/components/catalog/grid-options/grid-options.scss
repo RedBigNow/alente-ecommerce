@@ -25,3 +25,10 @@
     }
   }
 }
+
+
+@media screen and (max-width: 576px) {
+  .grid-options {
+    display: none;
+  }
+}
