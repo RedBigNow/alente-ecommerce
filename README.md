@@ -1,7 +1,7 @@
 # Alente ecommerce on Nuxt.js
 
 ## Demo:
-https://redbignow.github.io/alente-ecommerce/dist/index.html
+http://alente.meduza-web.ru/
 
 ## Build Setup
 
