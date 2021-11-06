@@ -22,6 +22,7 @@
 }
 
 .filter-item {
+  position: relative;
   padding: 32px 0;
   border: none;
   border-top: 1px solid #d6d6d6;
@@ -141,10 +142,12 @@ span.filter-item__title {
   justify-content: flex-end;
 	overflow: hidden;
 }
+
 .rating-area:not(:checked) > input {
   position: relative;
 	display: none;
 }
+
 .rating-area:not(:checked) > label {
   float: right;
   width: 30px;
@@ -162,8 +165,6 @@ span.filter-item__title {
   background-position: center;
 }
 .rating-area > input:checked ~ label {
-	color: transparent;
-
   &::before {
     content: '';
     display: inline-block;
@@ -189,13 +190,6 @@ span.filter-item__title {
     background-position: center;
   }
 }
-.rating-area > input:checked + label:hover,
-.rating-area > input:checked + label:hover ~ label,
-.rating-area > input:checked ~ label:hover,
-.rating-area > input:checked ~ label:hover ~ label,
-.rating-area > label:hover ~ input:checked ~ label {
-  color: transparent;
-}
 
 .rating-area sup {
 	position: absolute;
@@ -208,6 +202,43 @@ span.filter-item__title {
 .rate-area > label:active {
 	position: relative;
 }
+
+// Слайдер с выбором цены
+.range-values {
+  position: absolute;
+  top: 30px;
+  right: 0;
+}
+
+.range-slider {
+  position: relative;
+  width: 100%;
+  margin-top: 20px;
+  text-align: center;
+
+  svg,
+  input[type="range"] {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+
+  input[type="range"] {
+
+    &::-webkit-slider-runnable-track {
+      height: 6px;
+    }
+
+
+    &::-webkit-slider-thumb {
+      z-index: 2;
+      position: relative;
+      top: 2px;
+      margin-top: -5px;
+    }
+  }
+}
+
 
 // Кнопка "Очистить фильтр"
 .filter__btn-wrapper {

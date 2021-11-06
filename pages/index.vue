@@ -21,7 +21,8 @@ export default {
     computed: {
       getFilter () {
         return this.$store.getters.getFilter
-      }
+      },
+
     },
     head () {
         let title = 'Alente e-commerce',

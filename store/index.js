@@ -1,46 +1,60 @@
 import axios from 'axios'
+import { toNumber } from 'lodash'
+import _ from 'lodash'
 
 export const state = () => ({
   products: [],
   categories: [],
+  categoriesActive: [],
   brands: [],
+  brandsActive: [],
+  maxPrice: 0,
   priceRange: [
     {
-      id: '1',
+      id: 1,
       text: '$10',
-      minValue: '0',
-      maxValue: '10',
-      checked: false
+      min: 0,
+      max: 10
     },
     {
-      id: '2',
+      id: 2,
       text: '$10-$100',
-      minValue: '10',
-      maxValue: '100',
-      checked: false
+      min: 10,
+      max: 100
     },
     {
-      id: '3',
+      id: 3,
       text: '$100-$500',
-      minValue: '100',
-      maxValue: '500',
-      checked: false
+      min: 100,
+      max: 500
     },
     {
-      id: '4',
+      id: 4,
       text: '$500',
-      minValue: '500',
-      maxValue: '999999999999',
-      checked: false
+      min: 500,
     },
     {
-      id: '5',
+      id: 5,
       text: 'All',
-      minValue: '0',
-      maxValue: '999999999999',
-      checked: true
+      min: 0,
     }
   ],
+  priceRangeActive: {
+    min: 0
+  },
+  priceSlider: [0, 0],
+  priceSliderOptions: {
+    min: 0,
+    max: 0,
+    interval: 1,
+    dotSize: 16,
+    height: 6,
+  },
+  ratingRangeActive: {
+    min: 0,
+    max: 5
+  },
+  sortBy: 'id',
   grid: true,
   filterShow: false
 })
@@ -49,22 +63,73 @@ export const mutations = {
   setProducts (state, products) {
     state.products = products
   },
+  setMaxPrice (state, value) {
+    state.maxPrice = value
+
+    state.priceRangeActive.min = 0
+    state.priceRangeActive.max = value
+
+    state.priceSlider = [0, value]
+
+    state.priceSliderOptions.min = 0
+    state.priceSliderOptions.max = value
+
+    state.priceRange[3].max = value
+    state.priceRange[4].max = value
+  },
   setCategories (state, categories) {
     state.categories = categories
   },
   setBrands (state, brands) {
     state.brands = brands
   },
+  updateCategories (state, value) {
+    state.categoriesActive = value
+  },
+  updateBrands (state, value) {
+    state.brandsActive = value
+  },
+  updatePriceRange (state, value) {
+    state.priceRangeActive = value
+    state.priceSlider = [value.min, value.max]
+    state.priceSliderOptions.min = value.min
+    state.priceSliderOptions.max = value.max
+  },
+  updatePriceRangeSlider (state, value) {
+    state.priceSlider = value
+  },
+  updateRatingRange (state, value) {
+    state.ratingRangeActive = value
+  },
+  updateSortBy (state, value) {
+    state.sortBy = value
+  },
   changeGrid (state, status) {
     state.grid = status
   },
   showFilter (state) {
     state.filterShow = !state.filterShow
-  }
+  },
+  clearFilter (state) {
+    state.categoriesActive = []
+
+    state.brandsActive = []
+
+    state.priceRangeActive.min = 0
+    state.priceRangeActive.max = state.maxPrice
+
+    state.priceSlider = [0, state.maxPrice]
+
+    state.priceSliderOptions.min = 0
+    state.priceSliderOptions.max = state.maxPrice
+
+    state.ratingRangeActive.min = 0
+    state.ratingRangeActive.max = 5
+  },
 }
 
 export const actions = {
-  nuxtServerInit ({commit}, context) {
+  nuxtServerInit ({commit, getters}, context) {
     return axios.get('https://611a2bc9cbf1b30017eb5559.mockapi.io/product')
       .then(res => {
         const productsArray = []
@@ -72,6 +137,14 @@ export const actions = {
           productsArray.push( {...res.data[key]} )
         }
         commit('setProducts', productsArray)
+
+        let products = getters.getProducts
+        let productWithMaxPrice = _.maxBy(products, function(item) {
+          return item.price
+        })
+        let maxPrice = productWithMaxPrice.price
+
+        commit('setMaxPrice', maxPrice)
 
       })
       .catch(e => console.log(e))
@@ -103,6 +176,9 @@ export const actions = {
   },
   showFilter ({commit}) {
     commit('showFilter')
+  },
+  clearFilter ({commit}) {
+    commit('clearFilter')
   }
 }
 
@@ -113,11 +189,32 @@ export const getters = {
   getCategories (state) {
     return state.categories
   },
+  getCategoriesActive (state) {
+    return state.categoriesActive
+  },
   getBrands (state) {
     return state.brands
   },
+  getBrandsActive (state) {
+    return state.brandsActive
+  },
   getPriceRange (state) {
     return state.priceRange
+  },
+  getPriceRangeActive (state) {
+    return state.priceRangeActive
+  },
+  getPriceSlider (state) {
+    return state.priceSlider
+  },
+  getPriceSliderOptions (state) {
+    return state.priceSliderOptions
+  },
+  getRatingRangeActive (state) {
+    return state.ratingRangeActive
+  },
+  getSortBy (state) {
+    return state.sortBy
   },
   getGrid (state) {
     return state.grid

@@ -17,10 +17,8 @@ export default {
   methods: {
     onResize() {
       if (window.innerWidth > 780) {
-        console.log(9)
         this.pageSize = 9
       } else {
-        console.log(8)
         this.pageSize = 8
       }
     },

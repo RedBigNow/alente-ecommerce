@@ -3,7 +3,7 @@
 
     <section class="catalog-toolbar">
 
-      <span class="search-results">7,618 results found in 5ms</span>
+      <span class="search-results">{{productsLength}} results found</span>
 
       <div class="filter-btn" @click="showFilter">
         <div class="filter-btn__icon">
@@ -17,11 +17,16 @@
 
     </section>
 
-    <Search
+    <!-- <Search
       :value="search"
       placeholder="Search hear"
       @search="search = $event"
-    />
+    /> -->
+
+    <div class="form-search">
+      <input class="form-search__input" type="text" name="search" id="search" placeholder="Search hear" v-model="search">
+    </div>
+
     {{ AllFilters }}
 
     <productList :items="items" v-if="items"/>
@@ -57,7 +62,7 @@ export default {
   components: {
     selectSort,
     gridOptions,
-    Search,
+    // Search,
     productList
   },
   data () {
@@ -67,27 +72,55 @@ export default {
     }
   },
   computed: {
+    filterProducts: function () {
+      let products = this.getProducts()
+      return products.filter((item) => {
+        return (this.search.length === 0 || item.title.toLowerCase().includes(this.search.toLowerCase()))
+        && (this.getCategoriesActive().length === 0 || this.getCategoriesActive().includes(item.categoryId))
+        && (this.getBrandsActive().length === 0 || this.getBrandsActive().includes(item.brandId))
+        && (this.getPriceRangeActive() === {} || item.price >= this.getPriceRangeActive().min && item.price <= this.getPriceRangeActive().max)
+        && (this.getPriceSlider()[0] === 0 || item.price > this.getPriceSlider()[0])
+        && (this.getPriceSlider()[1] === 99999 || item.price <= this.getPriceSlider()[1])
+        && (this.getRatingRangeActive() === {} || item.rating >= this.getRatingRangeActive().min && item.rating <= this.getRatingRangeActive().max)
+      }).sort((a, b) => {
+      	if (this.getSortBy() == 'price') {
+					return a[this.getSortBy()] - b[this.getSortBy()]
+        } else if (this.getSortBy() == 'rating') {
+          return b[this.getSortBy()] - a[this.getSortBy()]
+        } else if (this.getSortBy() == 'id') {
+        	return a[this.getSortBy()].toString().localeCompare(b[this.getSortBy()].toString())
+        }
+      })
+    },
     AllFilters () {
-      let products = this.getProducts(),
-        search = this.search
-
-      if(!search) {
-        this.setupPagination(products)
-      } else {
-        search = search.trim().toLowerCase()
-        products = products.filter(function (item) {
-          if(item.title.toLowerCase().indexOf(search) !== -1) {
-            return item
-          }
-        })
-        this.setupPagination(products)
-      }
-
+      let products = this.filterProducts
+      this.setupPagination(products)
+    },
+    productsLength () {
+      return this.filterProducts.length
     }
   },
   methods: {
     getProducts () {
       return this.$store.getters.getProducts
+    },
+    getCategoriesActive () {
+      return this.$store.getters.getCategoriesActive
+    },
+    getBrandsActive () {
+      return this.$store.getters.getBrandsActive
+    },
+    getPriceRangeActive () {
+      return this.$store.getters.getPriceRangeActive
+    },
+    getPriceSlider () {
+      return this.$store.getters.getPriceSlider
+    },
+    getRatingRangeActive () {
+      return this.$store.getters.getRatingRangeActive
+    },
+    getSortBy () {
+      return this.$store.getters.getSortBy
     },
     showFilter () {
       this.$store.dispatch('showFilter')

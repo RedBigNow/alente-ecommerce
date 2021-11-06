@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 // UI
+import Preloader from '@/components/UI/Preloader.vue'
 import Paginate from '~/node_modules/vuejs-paginate/src/components/Paginate'
 
 // Controls
@@ -9,6 +10,7 @@ import AppInput from '@/components/UI/Controls/Input.vue'
 import AppTextarea from '@/components/UI/Controls/Textarea.vue'
 
 // UI
+Vue.component('Preloader', Preloader)
 Vue.component('Paginate', Paginate)
 
 // Controls

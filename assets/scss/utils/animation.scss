@@ -5,3 +5,13 @@
 .fade-enter, .fade-leave-to {
     opacity: 0;
 }
+
+@keyframes scaleGrid {
+  0% {transform: scale(0.8);}
+  100% {transform: scale(1);}
+}
+
+@keyframes scaleFull {
+  0% {transform: scale(0.8);}
+  100% {transform: scale(1);}
+}

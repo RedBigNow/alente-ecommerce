@@ -1,9 +1,24 @@
 <template>
   <div class="sort-by">
-    <select class="sort-by__select">
-      <option class="sort" data-sort="default" value="asc">Default</option>
-      <option class="sort" data-sort="price" value="asc">Price</option>
-      <option class="sort" data-sort="raiting" value="asc">Raiting</option>
+    <select class="sort-by__select" v-model="sortBy">
+      <option value="id">Default</option>
+      <option value="price">Price</option>
+      <option value="rating">Rating</option>
     </select>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    sortBy: {
+      get () {
+        return this.$store.state.sortBy
+      },
+      set (value) {
+        this.$store.commit('updateSortBy', value)
+      }
+    }
+  }
+}
+</script>
