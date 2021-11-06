@@ -6,7 +6,6 @@
 // import component
 import VueSlider from 'vue-slider-component/dist-css/vue-slider-component.umd.min.js'
 import 'vue-slider-component/dist-css/vue-slider-component.css'
-// import theme
 import 'vue-slider-component/theme/default.css'
 
 export default {
@@ -36,30 +35,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-.vue-slider {
-  padding: 8px !important;
-}
-
-.vue-slider-rail {
-  background-color: #ededed;
-}
-
-.vue-slider-process {
-  background-color: #6F64F8;
-}
-
-.vue-slider-dot-handle {
-  background-color: #6F64F8;
-  box-shadow: none;
-
-  &.vue-slider-dot-handle-focus {
-    box-shadow: 0 0 0px 3px rgba(0, 0, 0, 0.1);
-  }
-}
-
-.vue-slider-dot-tooltip-inner {
-  display: none;
-}
-</style>

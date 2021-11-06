@@ -1,8 +1,8 @@
 <template>
-  <div class="sidebar" :class="{ show : getFilter}">
-    <div class="close-btn" @click="showFilter"></div>
+  <section class="sidebar" :class="{ show : getFilterStatus}">
+    <div class="close-btn" @click="changeFilterStatus"></div>
     <catalogFilter />
-  </div>
+  </section>
 </template>
 
 <script>
@@ -13,13 +13,13 @@ export default {
     catalogFilter
   },
   computed: {
-    getFilter () {
-      return this.$store.getters.getFilter
+    getFilterStatus () {
+      return this.$store.getters.getFilterStatus
     }
   },
   methods: {
-    showFilter () {
-      this.$store.dispatch('showFilter')
+    changeFilterStatus () {
+      this.$store.dispatch('changeFilterStatus')
     }
   }
 }

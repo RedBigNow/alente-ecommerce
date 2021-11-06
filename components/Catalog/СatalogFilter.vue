@@ -1,6 +1,6 @@
 <template>
   <div class="filter">
-    <p>Фильтр</p>
+    <p>Filter</p>
     <form class="filter__form">
 
       <fieldset class="filter-item">
@@ -60,15 +60,15 @@
     </form>
 
     <div class="filter__btn-wrapper">
-      <AppButton btnClass="btn-apply" @click="showFilter">Apply</AppButton>
+      <AppButton btnClass="btn-apply" @click="changeFilterStatus">Apply</AppButton>
       <AppButton @click="clearFilter">Clear all filters</AppButton>
     </div>
   </div>
 </template>
 
 <script>
-import priceSlider from '@/components/Catalog/PriceSlider.vue'
-import filterItemSup from '@/components/Catalog/FilterItemSup.vue'
+import priceSlider from '@/components/UI/Filter/PriceSlider.vue'
+import filterItemSup from '@/components/UI/Filter/FilterItemSup.vue'
 
 export default {
   components: {
@@ -126,11 +126,11 @@ export default {
       set (value) {
         this.$store.commit('updateRatingRange', value)
       }
-    },
+    }
   },
   methods: {
-    showFilter () {
-      this.$store.dispatch('showFilter')
+    changeFilterStatus () {
+      this.$store.dispatch('changeFilterStatus')
     },
     clearFilter () {
       this.$store.dispatch('clearFilter')

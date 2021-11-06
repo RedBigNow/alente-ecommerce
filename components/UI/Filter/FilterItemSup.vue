@@ -20,41 +20,42 @@ export default {
     }
   },
   computed: {
-    productsFilter: function () {
+    filteredProducts: function () {
       if (this.filterType == 'categoryId') {
-
         let products = this.getProducts()
         return products.filter((item) => {
           return (item.categoryId == this.id)
+          && (this.getSearchValue().length === 0 || item.title.toLowerCase().includes(this.getSearchValue().toLowerCase()))
           && (this.getBrandsActive().length === 0 || this.getBrandsActive().includes(item.brandId))
           && (this.getPriceRangeActive() === {} || item.price >= this.getPriceRangeActive().min && item.price <= this.getPriceRangeActive().max)
           && (this.getPriceSlider()[0] === 0 || item.price > this.getPriceSlider()[0])
           && (this.getPriceSlider()[1] === 99999 || item.price <= this.getPriceSlider()[1])
           && (this.getRatingRangeActive() === {} || item.rating >= this.getRatingRangeActive().min && item.rating <= this.getRatingRangeActive().max)
         })
-
       } else if (this.filterType == 'brandId') {
-
         let products = this.getProducts()
         return products.filter((item) => {
           return (item.brandId == this.id)
+          && (this.getSearchValue().length === 0 || item.title.toLowerCase().includes(this.getSearchValue().toLowerCase()))
           && (this.getCategoriesActive().length === 0 || this.getCategoriesActive().includes(item.categoryId))
           && (this.getPriceRangeActive() === {} || item.price >= this.getPriceRangeActive().min && item.price <= this.getPriceRangeActive().max)
           && (this.getPriceSlider()[0] === 0 || item.price > this.getPriceSlider()[0])
           && (this.getPriceSlider()[1] === 99999 || item.price <= this.getPriceSlider()[1])
           && (this.getRatingRangeActive() === {} || item.rating >= this.getRatingRangeActive().min && item.rating <= this.getRatingRangeActive().max)
         })
-
       }
     },
     totalSup () {
-      let products = this.productsFilter
+      let products = this.filteredProducts
       return this.sup = products.length
     }
   },
   methods: {
     getProducts () {
       return this.$store.getters.getProducts
+    },
+    getSearchValue () {
+      return this.$store.getters.getSearchValue
     },
     getCategoriesActive () {
       return this.$store.getters.getCategoriesActive
@@ -70,7 +71,7 @@ export default {
     },
     getRatingRangeActive () {
       return this.$store.getters.getRatingRangeActive
-    },
+    }
   }
 }
 </script>

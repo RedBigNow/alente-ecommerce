@@ -95,7 +95,7 @@ span.filter-item__title {
   background-position: 3px 3px;
 }
 
-// Radio
+// Радио input
 .filter-item__radio {
   padding: 5px 0;
 }
@@ -134,7 +134,7 @@ span.filter-item__title {
   background-color: $blue;
 }
 
-// Rating
+// Рейтинг
 .rating-area {
   position: relative;
   display: flex;
@@ -210,33 +210,29 @@ span.filter-item__title {
   right: 0;
 }
 
-.range-slider {
-  position: relative;
-  width: 100%;
-  margin-top: 20px;
-  text-align: center;
+.vue-slider {
+  padding: 8px !important;
+}
 
-  svg,
-  input[type="range"] {
-    position: absolute;
-    left: 0;
-    bottom: 0;
+.vue-slider-rail {
+  background-color: #ededed !important;
+}
+
+.vue-slider-process {
+  background-color: #6F64F8 !important;
+}
+
+.vue-slider-dot-handle {
+  background-color: #6F64F8 !important;
+  box-shadow: none !important;
+
+  &.vue-slider-dot-handle-focus {
+    box-shadow: 0 0 0px 3px rgba(0, 0, 0, 0.1) !important;
   }
+}
 
-  input[type="range"] {
-
-    &::-webkit-slider-runnable-track {
-      height: 6px;
-    }
-
-
-    &::-webkit-slider-thumb {
-      z-index: 2;
-      position: relative;
-      top: 2px;
-      margin-top: -5px;
-    }
-  }
+.vue-slider-dot-tooltip-inner {
+  display: none !important;
 }
 
 

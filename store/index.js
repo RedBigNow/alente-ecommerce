@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { toNumber } from 'lodash'
 import _ from 'lodash'
 
 export const state = () => ({
@@ -10,53 +9,20 @@ export const state = () => ({
   brandsActive: [],
   maxPrice: 0,
   priceRange: [
-    {
-      id: 1,
-      text: '$10',
-      min: 0,
-      max: 10
-    },
-    {
-      id: 2,
-      text: '$10-$100',
-      min: 10,
-      max: 100
-    },
-    {
-      id: 3,
-      text: '$100-$500',
-      min: 100,
-      max: 500
-    },
-    {
-      id: 4,
-      text: '$500',
-      min: 500,
-    },
-    {
-      id: 5,
-      text: 'All',
-      min: 0,
-    }
+    { id: 1, text: '$10', min: 0, max: 10 },
+    { id: 2, text: '$10-$100', min: 10, max: 100 },
+    { id: 3, text: '$100-$500', min: 100, max: 500 },
+    { id: 4, text: '$500', min: 500 },
+    { id: 5, text: 'All', min: 0 }
   ],
-  priceRangeActive: {
-    min: 0
-  },
+  priceRangeActive: { min: 0 },
   priceSlider: [0, 0],
-  priceSliderOptions: {
-    min: 0,
-    max: 0,
-    interval: 1,
-    dotSize: 16,
-    height: 6,
-  },
-  ratingRangeActive: {
-    min: 0,
-    max: 5
-  },
+  priceSliderOptions: { min: 0, max: 0, interval: 1, dotSize: 16, height: 6 },
+  ratingRangeActive: { min: 0, max: 5 },
   sortBy: 'id',
   grid: true,
-  filterShow: false
+  searchValue: '',
+  filterStatus: false
 })
 
 export const mutations = {
@@ -65,15 +31,11 @@ export const mutations = {
   },
   setMaxPrice (state, value) {
     state.maxPrice = value
-
     state.priceRangeActive.min = 0
     state.priceRangeActive.max = value
-
     state.priceSlider = [0, value]
-
     state.priceSliderOptions.min = 0
     state.priceSliderOptions.max = value
-
     state.priceRange[3].max = value
     state.priceRange[4].max = value
   },
@@ -82,6 +44,9 @@ export const mutations = {
   },
   setBrands (state, brands) {
     state.brands = brands
+  },
+  updateSearchValue (state, value) {
+    state.searchValue = value
   },
   updateCategories (state, value) {
     state.categoriesActive = value
@@ -107,22 +72,17 @@ export const mutations = {
   changeGrid (state, status) {
     state.grid = status
   },
-  showFilter (state) {
-    state.filterShow = !state.filterShow
+  changeFilterStatus (state) {
+    state.filterStatus = !state.filterStatus
   },
   clearFilter (state) {
     state.categoriesActive = []
-
     state.brandsActive = []
-
     state.priceRangeActive.min = 0
     state.priceRangeActive.max = state.maxPrice
-
     state.priceSlider = [0, state.maxPrice]
-
     state.priceSliderOptions.min = 0
     state.priceSliderOptions.max = state.maxPrice
-
     state.ratingRangeActive.min = 0
     state.ratingRangeActive.max = 5
   },
@@ -174,8 +134,8 @@ export const actions = {
   changeGrid ({commit}, status) {
     commit('changeGrid', status)
   },
-  showFilter ({commit}) {
-    commit('showFilter')
+  changeFilterStatus ({commit}) {
+    commit('changeFilterStatus')
   },
   clearFilter ({commit}) {
     commit('clearFilter')
@@ -185,6 +145,9 @@ export const actions = {
 export const getters = {
   getProducts (state) {
     return state.products
+  },
+  getSearchValue (state) {
+    return state.searchValue
   },
   getCategories (state) {
     return state.categories
@@ -219,7 +182,7 @@ export const getters = {
   getGrid (state) {
     return state.grid
   },
-  getFilter (state) {
-    return state.filterShow
+  getFilterStatus (state) {
+    return state.filterStatus
   }
 }

@@ -1,39 +1,16 @@
 <template>
-  <div class="content">
+  <section class="content">
 
-    <section class="catalog-toolbar">
-
-      <span class="search-results">{{productsLength}} results found</span>
-
-      <div class="filter-btn" @click="showFilter">
-        <div class="filter-btn__icon">
-          <img src="~@/assets/img/filter.svg">
-        </div>
-      </div>
-
+    <div class="catalog-toolbar">
+      <searchResults :result="productsLength"/>
+      <filterBtn/>
       <selectSort/>
-
       <gridOptions/>
-
-    </section>
-
-    <!-- <Search
-      :value="search"
-      placeholder="Search hear"
-      @search="search = $event"
-    /> -->
-
-    <div class="form-search">
-      <input class="form-search__input" type="text" name="search" id="search" placeholder="Search hear" v-model="search">
+      <search/>
     </div>
-
-    {{ AllFilters }}
 
     <productList :items="items" v-if="items"/>
-
-    <div class="error-message" v-else>
-      <p>Товары не найдены</p>
-    </div>
+    <errorMessage :title="'Товары не найдены'" v-else/>
 
     <div class="pagination" v-if="items">
       <Paginate
@@ -47,40 +24,40 @@
       />
     </div>
 
-  </div>
+  </section>
 </template>
 
 <script>
-import paginationMixin from '@/mixins/pagination.mixin.js'
-import selectSort from '@/components/Catalog/SelectSort.vue'
-import gridOptions from '@/components/Catalog/GridOptions.vue'
-import Search from '@/components/Catalog/Search.vue'
+import filterBtn from '@/components/UI/Toolbar/FilterBtn.vue'
+import selectSort from '@/components/UI/Toolbar/SelectSort.vue'
+import gridOptions from '@/components/UI/Toolbar/GridOptions.vue'
+import search from '@/components/UI/Toolbar/Search.vue'
+import searchResults from '@/components/UI/Toolbar/SearchResults.vue'
 import productList from '@/components/Catalog/ProductList.vue'
+import errorMessage from '@/components/Catalog/ErrorMessage.vue'
+import paginationMixin from '@/mixins/pagination.mixin.js'
 
 export default {
   mixins: [paginationMixin],
   components: {
+    filterBtn,
     selectSort,
     gridOptions,
-    // Search,
-    productList
-  },
-  data () {
-    return {
-      search: '',
-      grid: true
-    }
+    search,
+    searchResults,
+    productList,
+    errorMessage
   },
   computed: {
-    filterProducts: function () {
+    filteredProducts: function () {
       let products = this.getProducts()
       return products.filter((item) => {
-        return (this.search.length === 0 || item.title.toLowerCase().includes(this.search.toLowerCase()))
+        return (this.getSearchValue().length === 0 || item.title.toLowerCase().includes(this.getSearchValue().toLowerCase()))
         && (this.getCategoriesActive().length === 0 || this.getCategoriesActive().includes(item.categoryId))
         && (this.getBrandsActive().length === 0 || this.getBrandsActive().includes(item.brandId))
         && (this.getPriceRangeActive() === {} || item.price >= this.getPriceRangeActive().min && item.price <= this.getPriceRangeActive().max)
-        && (this.getPriceSlider()[0] === 0 || item.price > this.getPriceSlider()[0])
-        && (this.getPriceSlider()[1] === 99999 || item.price <= this.getPriceSlider()[1])
+        && (item.price > this.getPriceSlider()[0])
+        && (item.price <= this.getPriceSlider()[1])
         && (this.getRatingRangeActive() === {} || item.rating >= this.getRatingRangeActive().min && item.rating <= this.getRatingRangeActive().max)
       }).sort((a, b) => {
       	if (this.getSortBy() == 'price') {
@@ -92,17 +69,21 @@ export default {
         }
       })
     },
-    AllFilters () {
-      let products = this.filterProducts
-      this.setupPagination(products)
-    },
     productsLength () {
-      return this.filterProducts.length
+      let products = this.filteredProducts
+      this.setupPagination(products)
+      return products.length
     }
   },
   methods: {
     getProducts () {
       return this.$store.getters.getProducts
+    },
+    getSearchValue () {
+      return this.$store.getters.getSearchValue
+    },
+    getSortBy () {
+      return this.$store.getters.getSortBy
     },
     getCategoriesActive () {
       return this.$store.getters.getCategoriesActive
@@ -118,52 +99,7 @@ export default {
     },
     getRatingRangeActive () {
       return this.$store.getters.getRatingRangeActive
-    },
-    getSortBy () {
-      return this.$store.getters.getSortBy
-    },
-    showFilter () {
-      this.$store.dispatch('showFilter')
     }
   }
 }
 </script>
-
-<style lang="scss">
-.filter-btn {
-  display: none;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  margin-right: 20px;
-  padding: 10px;
-  background: #fff;
-  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.13);
-  border-radius: 8px;
-  cursor: pointer;
-
-  .filter-btn__icon {
-    width: 100%;
-    height: 100%;
-    img {
-      width: 100%;
-    }
-  }
-}
-
-@media screen and (max-width: 992px) {
-  .filter-btn {
-    display: flex;
-  }
-}
-
-@media screen and (max-width: 360px) {
-  .filter-btn {
-    width: 30px;
-    height: 30px;
-    margin-right: 12px;
-    padding: 7px;
-  }
-}
-</style>
