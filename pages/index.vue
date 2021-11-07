@@ -1,5 +1,6 @@
 <template>
-  <div class="wrapper-content" :class="{ 'no-scroll' : getFilterStatus}">
+  <div class="wrapper-content" :class="{ 'no-scroll' : getFilterStatus || getPreloader}">
+    <preloader v-if="getPreloader"/>
     <div class="container">
       <div class="catalog-wrapper">
         <sidebar />
@@ -18,7 +19,15 @@ export default {
     sidebar,
     catalogContent
   },
+  mounted: function () {
+    this.$nextTick(function () {
+      setTimeout(() => this.$store.dispatch('hidePreloader'), 2000);
+    })
+  },
   computed: {
+    getPreloader () {
+      return this.$store.getters.getPreloader
+    },
     getFilterStatus () {
       return this.$store.getters.getFilterStatus
     }

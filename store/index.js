@@ -2,6 +2,7 @@ import axios from 'axios'
 import _ from 'lodash'
 
 export const state = () => ({
+  preloader: true,
   products: [],
   categories: [],
   categoriesActive: [],
@@ -28,6 +29,9 @@ export const state = () => ({
 export const mutations = {
   setProducts (state, products) {
     state.products = products
+  },
+  hidePreloader (state) {
+    state.preloader = false
   },
   setMaxPrice (state, value) {
     state.maxPrice = value
@@ -86,10 +90,14 @@ export const mutations = {
     state.ratingRangeActive.min = 0
     state.ratingRangeActive.max = 5
   },
+  clearRating (state) {
+    state.ratingRangeActive.min = 0
+    state.ratingRangeActive.max = 5
+  }
 }
 
 export const actions = {
-  nuxtServerInit ({commit, getters}, context) {
+  nuxtServerInit ({commit}) {
     return axios.get('https://611a2bc9cbf1b30017eb5559.mockapi.io/product')
       .then(res => {
         const productsArray = []
@@ -97,19 +105,11 @@ export const actions = {
           productsArray.push( {...res.data[key]} )
         }
         commit('setProducts', productsArray)
-
-        let products = getters.getProducts
-        let productWithMaxPrice = _.maxBy(products, function(item) {
-          return item.price
-        })
-        let maxPrice = productWithMaxPrice.price
-
-        commit('setMaxPrice', maxPrice)
-
+        this.dispatch('setMaxPrice')
       })
       .catch(e => console.log(e))
   },
-  setCategories ({commit}, context) {
+  setCategories ({commit}) {
     return axios.get('https://611a2bc9cbf1b30017eb5559.mockapi.io/category')
       .then(res => {
         const categoriesArray = []
@@ -120,7 +120,7 @@ export const actions = {
       })
       .catch(e => console.log(e))
   },
-  setBrands ({commit}, context) {
+  setBrands ({commit}) {
     return axios.get('https://611a2bc9cbf1b30017eb5559.mockapi.io/brand')
       .then(res => {
         const brandsArray = []
@@ -131,6 +131,17 @@ export const actions = {
       })
       .catch(e => console.log(e))
   },
+  hidePreloader ({commit}) {
+    commit('hidePreloader')
+  },
+  setMaxPrice ({commit, getters}) {
+    let products = getters.getProducts
+    let productWithMaxPrice = _.maxBy(products, function(item) {
+      return item.price
+    })
+    let maxPrice = productWithMaxPrice.price
+    commit('setMaxPrice', maxPrice)
+  },
   changeGrid ({commit}, status) {
     commit('changeGrid', status)
   },
@@ -139,10 +150,16 @@ export const actions = {
   },
   clearFilter ({commit}) {
     commit('clearFilter')
+  },
+  clearRating ({commit}) {
+    commit('clearRating')
   }
 }
 
 export const getters = {
+  getPreloader (state) {
+    return state.preloader
+  },
   getProducts (state) {
     return state.products
   },

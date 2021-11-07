@@ -55,6 +55,7 @@
           <input type="radio" v-model="ratingRangeActive" id="star-1" name="rating" :value="{min: 0, max: 1.9}">
           <label for="star-1" title="Оценка «1»"></label>
         </div>
+        <span class="clear-rating" @click="clearRating">Clear</span>
       </fieldset>
 
     </form>
@@ -131,6 +132,9 @@ export default {
   methods: {
     changeFilterStatus () {
       this.$store.dispatch('changeFilterStatus')
+    },
+    clearRating () {
+      this.$store.dispatch('clearRating')
     },
     clearFilter () {
       this.$store.dispatch('clearFilter')

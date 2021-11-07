@@ -140,6 +140,7 @@ span.filter-item__title {
   display: flex;
   flex-flow: row-reverse;
   justify-content: flex-end;
+  height: 26px;
 	overflow: hidden;
 }
 
@@ -188,6 +189,22 @@ span.filter-item__title {
     height: 20px;
     background-repeat: no-repeat;
     background-position: center;
+  }
+}
+
+.clear-rating {
+  position: absolute;
+  right: 0;
+  bottom: 3px;
+  padding: 4px 8px;
+  background: #ededed;
+  font-size: 0.6rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: .3s;
+
+  &:hover {
+    background: #d8d8d8;
   }
 }
 
